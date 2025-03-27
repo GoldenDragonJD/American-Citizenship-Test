@@ -146,7 +146,7 @@
                     id: 0,
                     question: "What is the supreme law of the land?",
                     answers_count: 1,
-                    answers: ["Constitution"],
+                    answers: ["constitution"],
                 },
                 {
                     id: 1,
@@ -781,7 +781,7 @@
 
         <script>
             let data = [];
-            let currentQuestion = 0;
+            let currentQuestion = -1;
 
             function checkAnswer() {
                 allCorrect = true;
@@ -790,7 +790,7 @@
 
                 //check if all answers are in current answers
                 allAnswers.forEach((answer) => {
-                    if (!data[currentQuestion].answers.includes(answer.value.toLocaleLowerCase())) {
+                    if (!data[currentQuestion].answers.map((a) => a.toLocaleLowerCase()).includes(answer.value.toLocaleLowerCase())) {
                         console.log(answer.textContent);
                         answer.style.backgroundColor = "red";
                         allCorrect = false;
@@ -803,12 +803,13 @@
                 document.querySelector(".answer-check-text").textContent = `Correct Answers: ${data[currentQuestion].answers.join(", ")}`;
 
                 if (allCorrect) {
-                    answerCheckText.textContent = "All answers are correct!";
+                    document.querySelector(".answer-check-text").textContent = "All answers are correct!";
                     document.querySelector(".next").style.display = "flex";
                 }
             }
 
             function NextQuestion() {
+                currentQuestion++;
                 if (currentQuestion >= data.length) {
                     currentQuestion = 0;
                     OpenHomePage();
@@ -829,10 +830,8 @@
                     document.querySelector(".answer-container").appendChild(answer);
                 }
 
-                document.querySelectorAll(".next").style.display = "none";
+                document.querySelector(".next").style.display = "none";
                 document.querySelector(".answer-check").style.display = "none";
-
-                currentQuestion++;
             }
 
             function OpenHomePage() {
@@ -877,7 +876,7 @@
 
             <div class="button-container">
                 <button class="submit" onclick="checkAnswer()">Submit</button>
-                <button class="next" onclick="nextQuestion(1)">Next</button>
+                <button class="next" onclick="NextQuestion()">Next</button>
             </div>
 
             <div class="answer-check">
