@@ -113,6 +113,7 @@
             }
 
             .answer-check {
+                display: none;
                 text-align: center;
                 font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
                 background-color: lightgray;
@@ -120,7 +121,6 @@
                 border: 3px solid black;
                 width: 50%;
                 margin: 10px auto;
-                display: none;
             }
 
             .navigation-buttons {
@@ -804,7 +804,7 @@
 
                 if (allCorrect) {
                     answerCheckText.textContent = "All answers are correct!";
-                    document.querySelectorAll(".next").style.display = "flex";
+                    document.querySelector(".next").style.display = "flex";
                 }
             }
 
